@@ -1,0 +1,386 @@
+/**
+ * components.css - Component-specific styles for session tracking app
+ * Styles for timer, buttons, forms, session items, and other UI components
+ */
+
+/* ========== TIMER SECTION ========== */
+
+.timer-section {
+	text-align: center;
+}
+
+.timer-display {
+	font-size: 4rem;
+	font-weight: 700;
+	color: var(--primary-color);
+	font-family: "Courier New", monospace;
+	letter-spacing: 0.1em;
+	margin: var(--spacing-xl) 0;
+	padding: var(--spacing-xl);
+	background-color: #21262d;
+	border-radius: var(--border-radius-lg);
+	transition: transform var(--transition-fast);
+	border: 1px solid var(--border-gray);
+}
+
+.timer-display:hover {
+	transform: scale(1.02);
+}
+
+.timer-controls {
+	display: flex;
+	gap: var(--spacing-md);
+	justify-content: center;
+	flex-wrap: wrap;
+	margin: var(--spacing-lg) 0;
+}
+
+.timer-help {
+	font-size: var(--font-size-sm);
+	color: var(--secondary-color);
+	margin-top: var(--spacing-md);
+	font-style: italic;
+}
+
+/* ========== BUTTONS ========== */
+
+.btn {
+	padding: var(--spacing-md) var(--spacing-lg);
+	border: none;
+	border-radius: var(--border-radius-md);
+	font-size: var(--font-size-base);
+	font-weight: 600;
+	cursor: pointer;
+	transition: all var(--transition-fast);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--spacing-sm);
+	white-space: nowrap;
+}
+
+.btn:focus {
+	outline: none;
+	box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.btn:active {
+	transform: scale(0.98);
+}
+
+.btn:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+	transform: scale(1);
+}
+
+/* Button Variants */
+.btn-primary {
+	background-color: var(--primary-color);
+	color: #0d1117;
+	box-shadow: var(--shadow-md);
+	font-weight: 700;
+}
+
+.btn-primary:hover:not(:disabled) {
+	background-color: #1f6feb;
+	box-shadow: var(--shadow-lg);
+}
+
+.btn-secondary {
+	background-color: #21262d;
+	color: var(--white);
+	border: 1px solid var(--border-gray);
+}
+
+.btn-secondary:hover:not(:disabled) {
+	background-color: #30363d;
+	border-color: var(--text-gray);
+}
+
+.btn-danger {
+	background-color: var(--danger-color);
+	color: #0d1117;
+	box-shadow: var(--shadow-md);
+	font-weight: 700;
+}
+
+.btn-danger:hover:not(:disabled) {
+	background-color: #da3633;
+	box-shadow: var(--shadow-lg);
+}
+
+/* ========== FORM STYLES ========== */
+
+.form-section {
+	display: flex;
+	flex-direction: column;
+}
+
+.session-form {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-lg);
+}
+
+.form-group {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-sm);
+}
+
+.form-group label {
+	font-weight: 600;
+	color: var(--white);
+	font-size: var(--font-size-base);
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+	padding: var(--spacing-md);
+	border: 1px solid var(--border-gray);
+	border-radius: var(--border-radius-md);
+	font-family: inherit;
+	font-size: var(--font-size-base);
+	color: var(--white);
+	background-color: #0d1117;
+	transition: all var(--transition-fast);
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+	outline: none;
+	border-color: var(--primary-color);
+	box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.2);
+	background-color: #0d1117;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+	color: var(--text-gray);
+}
+
+.form-group textarea {
+	resize: vertical;
+	min-height: 100px;
+}
+
+.form-group select {
+	cursor: pointer;
+	appearance: none;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+	background-position: right var(--spacing-md) center;
+	background-repeat: no-repeat;
+	background-size: 1.5em 1.5em;
+	padding-right: 2.5rem;
+}
+
+/* ========== SESSIONS LIST ========== */
+
+.sessions-section {
+	display: flex;
+	flex-direction: column;
+	min-height: 500px;
+}
+
+.sessions-list {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-md);
+	flex: 1;
+	overflow-y: auto;
+	max-height: 600px;
+	padding-right: var(--spacing-sm);
+}
+
+.sessions-list::-webkit-scrollbar {
+	width: 6px;
+}
+
+.sessions-list::-webkit-scrollbar-track {
+	background: #161b22;
+	border-radius: var(--border-radius-md);
+}
+
+.sessions-list::-webkit-scrollbar-thumb {
+	background: var(--border-gray);
+	border-radius: var(--border-radius-md);
+	transition: background-color var(--transition-fast);
+}
+
+.sessions-list::-webkit-scrollbar-thumb:hover {
+	background: var(--text-gray);
+}
+
+/* Session Item Card */
+.session-item {
+	background-color: #21262d;
+	border-left: 4px solid var(--primary-color);
+	padding: var(--spacing-lg);
+	border-radius: var(--border-radius-md);
+	transition: all var(--transition-fast);
+	cursor: default;
+}
+
+.session-item:hover {
+	background-color: #161b22;
+	border-left-color: #58a6ff;
+	box-shadow: var(--shadow-md);
+}
+
+.session-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	gap: var(--spacing-md);
+	margin-bottom: var(--spacing-md);
+}
+
+.session-title {
+	font-size: var(--font-size-lg);
+	font-weight: 600;
+	color: var(--white);
+	margin: 0;
+	flex: 1;
+	word-break: break-word;
+}
+
+.session-duration {
+	font-family: "Courier New", monospace;
+	font-size: var(--font-size-lg);
+	font-weight: 700;
+	color: var(--primary-color);
+	background-color: #0d1117;
+	padding: var(--spacing-sm) var(--spacing-md);
+	border-radius: var(--border-radius-md);
+	white-space: nowrap;
+	border: 1px solid var(--border-gray);
+}
+
+.session-description {
+	color: var(--text-gray);
+	font-size: var(--font-size-sm);
+	margin: 0 0 var(--spacing-md) 0;
+	line-height: 1.5;
+	word-wrap: break-word;
+}
+
+.session-footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: var(--spacing-md);
+	font-size: var(--font-size-sm);
+	color: var(--secondary-color);
+	flex-wrap: wrap;
+}
+
+.session-category {
+	display: inline-block;
+	background-color: var(--primary-color);
+	color: #0d1117;
+	padding: var(--spacing-xs) var(--spacing-sm);
+	border-radius: var(--border-radius-sm);
+	font-weight: 600;
+}
+
+.session-date {
+	white-space: nowrap;
+}
+
+/* ========== RESPONSIVE ADJUSTMENTS ========== */
+
+@media (max-width: 768px) {
+	.timer-display {
+		font-size: 3rem;
+		padding: var(--spacing-lg);
+	}
+
+	.timer-controls {
+		flex-direction: column;
+	}
+
+	.btn {
+		width: 100%;
+	}
+
+	.session-item {
+		padding: var(--spacing-md);
+	}
+
+	.session-header {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.session-duration {
+		align-self: flex-start;
+	}
+
+	.session-footer {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: var(--spacing-sm);
+	}
+}
+
+@media (max-width: 480px) {
+	.timer-display {
+		font-size: 2rem;
+		padding: var(--spacing-lg);
+		margin: var(--spacing-lg) 0;
+	}
+
+	.btn {
+		padding: var(--spacing-sm) var(--spacing-md);
+		font-size: var(--font-size-sm);
+	}
+
+	.form-group input,
+	.form-group textarea,
+	.form-group select {
+		padding: var(--spacing-sm);
+	}
+
+	.sessions-list {
+		max-height: 400px;
+	}
+}
+
+/* Session Actions */
+.session-actions {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-md);
+}
+
+.btn-delete {
+	background: none;
+	border: none;
+	color: var(--danger-color);
+	font-size: 1.25rem;
+	font-weight: 700;
+	cursor: pointer;
+	padding: 0 var(--spacing-sm);
+	line-height: 1;
+	border-radius: var(--border-radius-sm);
+	transition: background-color var(--transition-fast);
+	min-width: 28px;
+	height: 28px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.btn-delete:hover:not(:disabled) {
+	background-color: rgba(248, 81, 73, 0.15);
+}
+
+.btn-delete:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}

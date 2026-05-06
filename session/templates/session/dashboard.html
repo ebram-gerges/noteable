@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session Tracker</title>
+    <link rel="stylesheet" href="{% static 'session/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'session/css/components.css' %}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="app-header">
+            <h1>Session Tracker</h1>
+            <p class="subtitle">Track your work sessions with precision</p>
+        </header>
+
+        <!-- Messages Container -->
+        <div id="messageContainer" class="message-container"></div>
+
+        <!-- Main Content Grid -->
+        <div class="main-grid">
+            <!-- Left Column: Timer and Form -->
+            <div class="left-column">
+                <!-- Timer Section -->
+                <section class="timer-section">
+                    <h2>Timer</h2>
+                    <div class="timer-display" id="timerDisplay">00:00</div>
+                    <div class="timer-controls">
+                        <button id="startBtn" class="btn btn-primary">Start</button>
+                        <button id="pauseBtn" class="btn btn-secondary" disabled>Pause</button>
+                        <button id="endBtn" class="btn btn-danger" disabled>End Session</button>
+                    </div>
+                    <p class="timer-help">Press SPACE to start/pause, ENTER to end session</p>
+                </section>
+
+                <!-- Session Form Section -->
+                <section class="form-section">
+                    <h2>Session Details</h2>
+                    <form id="sessionForm" class="session-form">
+                        {% csrf_token %}
+                        
+                        <div class="form-group">
+                            <label for="titleInput">Title <span class="required">*</span></label>
+                            <input 
+                                type="text" 
+                                id="titleInput" 
+                                name="title" 
+                                placeholder="Enter session title"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="descriptionInput">Description</label>
+                            <textarea 
+                                id="descriptionInput" 
+                                name="description" 
+                                placeholder="Add optional notes about this session"
+                                rows="4"
+                            ></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="categorySelect">Category <span class="required">*</span></label>
+                            <select id="categorySelect" name="category" required>
+                                <option value="">Select a category...</option>
+                            </select>
+                        </div>
+                    </form>
+                </section>
+            </div>
+
+            <!-- Right Column: Sessions List -->
+            <div class="right-column">
+                <section class="sessions-section">
+                    <h2>Recent Sessions</h2>
+                    <div id="sessionsList" class="sessions-list">
+                        <p class="loading">Loading sessions...</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts: Load in specific order -->
+    <script src="{% static 'session/js/api.js' %}"></script>
+    <script src="{% static 'session/js/timer.js' %}"></script>
+    <script src="{% static 'session/js/ui.js' %}"></script>
+    <script src="{% static 'session/js/main.js' %}"></script>
+</body>
+</html>
