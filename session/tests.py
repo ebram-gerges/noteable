@@ -109,3 +109,18 @@ class SessionAPITests(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 1)
         self.assertEqual(response.data[0]["title"], "Mine")
+
+    def test_list_only_own_sessions(self):
+        """User only sees their own sessions in list."""
+        other_user = User.objects.create_user(
+            username="other2", password="otherpass123"
+        )
+        Session.objects.create(user=self.user, title="Mine", duration=100)
+        Session.objects.create(user=other_user, title="Theirs", duration=200)
+
+        self.client.force_login(self.user)
+        response = self.client.get("/api/sessions/")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data["results"]), 1)  # Fixed
+        self.assertEqual(response.data["results"][0]["title"], "Mine")

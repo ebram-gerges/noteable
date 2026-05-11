@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
+from .pagination import LargeResultSetPage, StandardResultSetPage
+
 
 from .serializers import (
     SessionSerializers,
@@ -13,7 +15,7 @@ from .serializers import (
 )
 
 
-@permission_classes([IsAuthenticated])
+@login_required
 def dashboard(request):
     """Render the session tracking dashboard."""
     sessions = Session.objects.filter(user=request.user)
@@ -73,9 +75,25 @@ def session_add_api(request):
 @permission_classes([IsAuthenticated])
 def session_list_api(request):
     """sends neccessary data for all sessions"""
-    sessions = Session.objects.filter(user=request.user)
-    res = SessionListSerializers(sessions, many=True)
-    return Response(res.data, status=200)
+    sessions = Session.objects.filter(user=request.user).order_by("-created_at")
+    category = request.query_params.get("category")
+    startDate = request.query_params.get("start_date")
+    endDate = request.query_params.get("end_date")
+
+    # filter by category
+    if category:
+        sessions = sessions.filter(category_id=category)
+    # filter by startDate
+    if startDate:
+        sessions = sessions.filter(created_at__date__gte=startDate)
+    # filter by endDate
+    if endDate:
+        sessions = sessions.filter(created_at__date__lte=endDate)
+
+    pageination = StandardResultSetPage()
+    result_page = pageination.paginate_queryset(sessions, request)
+    res = SessionListSerializers(result_page, many=True)
+    return pageination.get_paginated_response(res.data)
 
 
 @api_view(["DELETE"])

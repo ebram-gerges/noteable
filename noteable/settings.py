@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "session",
     "rest_framework",
+    "django_filters",
 ]
 
 MIDDLEWARE = [
@@ -133,3 +134,9 @@ MEDIA_ROOT = BASE_DIR / "media"
 # Login redirects
 LOGIN_URL = "/accounts/login/"
 LOGIN_REDIRECT_URL = "/"
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+    "PAGE_SIZE": 40,
+}
